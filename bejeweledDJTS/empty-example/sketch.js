@@ -58,21 +58,25 @@ function mouseClicked()
     if (activeRect.length == 0)
     {
         activeRect.push(currentRect);
+        selectCurrentRect(activeRect[0]);
         console.log(currentRect);
     }
     else if (isAdjacent(activeRect[0], currentRect))
     {
+        selectCurrentRect(activeRect[0]);
         swap(grid, activeRect[0], currentRect);
         if ( !hasChains(grid))
             {
                 swap(grid, activeRect[0], currentRect);
                 activeRect = [];
+                return;
             }
         updateGrid(grid);
         activeRect = [];
     }
     else
         {
+            selectCurrentRect(activeRect[0]);
             activeRect = [];
         }
 }
@@ -95,15 +99,15 @@ function getRandomColor()
     var r = Math.floor(random(5));
 
     if (r == 0)
-        return "green";
+        return "#099102";
     if (r == 1)
-        return "red";
+        return "#F80101";
     if (r == 2)
-        return "blue";
+        return "#0101F8";
     if (r == 3)
-        return "yellow";
+        return "#F8F801";
     if (r == 4)
-        return "purple";
+        return "#9B01EE";
 }
 
 function getRectIndexAtLocation(position)
@@ -114,19 +118,50 @@ function getRectIndexAtLocation(position)
         return {x: Math.abs(xCoord), y: Math.abs(yCoord)};
 }
 
+function selectCurrentRect(currentRect)
+{
+    switch (grid[currentRect.y][currentRect.x])
+        {
+            case "#099102":
+                grid[currentRect.y][currentRect.x] = "#66F966";
+                break;
+            case "#F80101":
+                grid[currentRect.y][currentRect.x] = "#FF3D3D";
+                break;
+            case "#0101F8":
+                grid[currentRect.y][currentRect.x] = "#6358FD";
+                break;
+            case "#F8F801":
+                grid[currentRect.y][currentRect.x] = "#FCF268";
+                break;
+            case "#9B01EE":
+                grid[currentRect.y][currentRect.x] = "#C357FE";
+                break;
+            case "#66F966":
+                grid[currentRect.y][currentRect.x] = "#099102";
+                break;
+            case "#FF3D3D":
+                grid[currentRect.y][currentRect.x] = "#F80101";
+                break;
+            case "#6358FD":
+                grid[currentRect.y][currentRect.x] = "#0101F8";
+                break;
+            case "#FCF268":
+                grid[currentRect.y][currentRect.x] = "#F8F801";
+                break;
+            case "#C357FE":
+                grid[currentRect.y][currentRect.x] = "#9B01EE";
+                break;
+            default:
+                return;
+        }
+}
+
 function swap(grid, p, q)
 {
     let temp = grid[p.y][p.x];
     grid[p.y][p.x] = grid[q.y][q.x];
     grid[q.y][q.x] = temp
-
-    /**if ( !hasChains(grid) )
-     {
-            let temp = grid[p.y][p.x];
-            grid[p.y][p.x] = grid[q.y][q.x];
-            grid[q.y][q.x] = temp;
-        }**/
-
 }
 
 function isAdjacent(p, q)
