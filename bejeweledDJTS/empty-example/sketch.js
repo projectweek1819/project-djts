@@ -1,20 +1,23 @@
 var grid;
 var activeRect = [];
-var result = 0;
 var score;
+var highscore;
 const distanceBetweenRect = 50;
 const sizeRect = 49;
 
 
 // ########SETUP########
 function setup() {
-    createCanvas(600, 600);
+    var cnv = createCanvas(600, 600);
+    cnv.parent("canvas");
     grid = createEmptyGrid(12);
     fillEmptyRect(grid);
     updateGrid(grid);
     result = 0;
     score = 0;
     document.getElementById("score").innerHTML = score;
+    highscore = 0;
+    document.getElementById("highscore").innerHTML = highscore;
 }
 
 function createEmptyGrid(dimension)
@@ -61,7 +64,6 @@ function mouseClicked()
         if (activeRect.length == 0) {
             activeRect.push(currentRect);
             selectCurrentRect(activeRect[0]);
-            console.log(currentRect);
         }
         else if (isAdjacent(activeRect[0], currentRect)) {
             selectCurrentRect(activeRect[0]);
@@ -244,14 +246,14 @@ function removeChains(grid)
             if (horizontalChainAt(grid, {x: i, y: j}) >= 3)
             {
                 positions.push({x: i, y: j});
-                result += 100;
+                score += 100;
             }
 
             if (verticalChainAt(grid, {x: i, y: j}) >= 3)
             {
                 positions.push({x: i, y: j});
 
-                result += 100;
+                score += 100;
             }
         }
     }
@@ -259,7 +261,7 @@ function removeChains(grid)
     for (let position of positions)
         grid[position.y][position.x] = "";
 
-    document.getElementById("score").innerHTML = result;
+    document.getElementById("score").innerHTML = score;
 }
 
 function collapsePossible(grid)
@@ -311,7 +313,7 @@ function startClock()
 {
     if (clicked === false)
     {
-        sec = 5;
+        sec = 300;
         score = 0;
         document.getElementById("score").innerHTML = score;
         clock = setInterval("countdown()", 1000);
@@ -343,5 +345,10 @@ function stopClock()
 {
     window.clearInterval(clock);
     document.getElementById("timer").innerHTML = "Out of time!";
+    if(score > highscore)
+    {
+        highscore = score;
+    }
+    document.getElementById("highscore").innerHTML = highscore;
     clicked = false;
 }
