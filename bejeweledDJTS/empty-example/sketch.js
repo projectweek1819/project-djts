@@ -18,6 +18,14 @@ function setup() {
     document.getElementById("score").innerHTML = score;
     highscore = 0;
     document.getElementById("highscore").innerHTML = highscore;
+    if((totalTime % 60) < 10)
+    {
+        document.getElementById("timer").innerHTML = "Time left: 0" + Math.floor(totalTime / 60) + ":0" + (totalTime % 60);
+    }
+    else
+    {
+        document.getElementById("timer").innerHTML = "Time left: 0" + Math.floor(totalTime / 60) + ":" + (totalTime % 60);
+    }
 }
 
 function createEmptyGrid(dimension)
@@ -308,12 +316,13 @@ function updateGrid(grid)
 //          Timer           //
 var clicked = false;
 var sec;
+var totalTime = 300;
 
 function startClock()
 {
     if (clicked === false)
     {
-        sec = 300;
+        sec = totalTime;
         score = 0;
         document.getElementById("score").innerHTML = score;
         clock = setInterval("countdown()", 1000);
@@ -330,7 +339,7 @@ function countdown()
     }
     else
     {
-        if(sec < 10)
+        if((sec % 60) < 10)
         {
             document.getElementById("timer").innerHTML = "Time left: 0" + Math.floor(sec / 60) + ":0" + (sec % 60);
         }
@@ -351,4 +360,11 @@ function stopClock()
     }
     document.getElementById("highscore").innerHTML = highscore;
     clicked = false;
+}
+
+function restartGame()
+{
+    window.clearInterval(clock);
+    sec = totalTime;
+    setup();
 }

@@ -15,11 +15,10 @@ main {
 
 body {
     display: flex;
-    justify-content: flex-start;
 }
 
-input {
-    margin-top: 280px;
-    margin-bottom: 280px;
-    margin-left: 280px;
+#inputs {
+    margin-top: 200px;
+    margin-bottom: 200px;
+    margin-left: 200px;
 }

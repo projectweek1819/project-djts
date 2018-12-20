@@ -10,10 +10,14 @@
 </head>
 <body>
 
-    <input type="submit" id="start-clock" value="Start game" name="submit" onClick="startClock()"/>
+    <div id="inputs">
+        <input type="submit" id="start-clock" value="Start game" name="submit" onClick="startClock()"/>
+        <input type="submit" id="start-clock" value="Restart game" name="submit" onClick="restartGame()"/>
+    </div>
+
     <main>
         <script src="sketch.js"></script>
-        <div><span id="timer">Time left: 05:00</span></div>
+        <div><span id="timer"></span></div>
         <div>
             Score: <span id="score"></span>Highscore: <span id="highscore"></span>
         </div>
