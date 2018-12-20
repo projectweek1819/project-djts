@@ -1,5 +1,6 @@
 var grid;
 var activeRect = [];
+var result = 0;
 const distanceBetweenRect = 50;
 const sizeRect = 49;
 
@@ -10,6 +11,8 @@ function setup() {
     grid = createEmptyGrid(12);
     fillEmptyRect(grid);
     updateGrid(grid);
+    result = 0;
+    document.getElementById("score").innerHTML = 0;
 }
 
 function createEmptyGrid(dimension)
@@ -60,9 +63,18 @@ function mouseClicked()
     else if (isAdjacent(activeRect[0], currentRect))
     {
         swap(grid, activeRect[0], currentRect);
+        if ( !hasChains(grid))
+            {
+                swap(grid, activeRect[0], currentRect);
+                activeRect = [];
+            }
         updateGrid(grid);
         activeRect = [];
     }
+    else
+        {
+            activeRect = [];
+        }
 }
 
 //########REST########
@@ -106,9 +118,9 @@ function swap(grid, p, q)
 {
     let temp = grid[p.y][p.x];
     grid[p.y][p.x] = grid[q.y][q.x];
-    grid[q.y][q.x] = temp;
+    grid[q.y][q.x] = temp
 
-    /**if (! hasChains(grid))
+    /**if ( !hasChains(grid) )
      {
             let temp = grid[p.y][p.x];
             grid[p.y][p.x] = grid[q.y][q.x];
@@ -189,7 +201,6 @@ function hasChains(grid)
 function removeChains(grid)
 {
     let positions = [];
-    let result = {};
 
     for (let i = 0; i < grid[0].length; i++)
     {
@@ -198,21 +209,14 @@ function removeChains(grid)
             if (horizontalChainAt(grid, {x: i, y: j}) >= 3)
             {
                 positions.push({x: i, y: j});
-
-                if (grid[j][i] in result)
-                    result[grid[j][i]]++;
-                else
-                    result[grid[j][i]] = 1;
+                result += 100;
             }
 
             if (verticalChainAt(grid, {x: i, y: j}) >= 3)
             {
                 positions.push({x: i, y: j});
 
-                if (grid[j][i] in result)
-                    result[grid[j][i]]++;
-                else
-                    result[grid[j][i]] = 1;
+                result += 100;
             }
         }
     }
@@ -220,7 +224,7 @@ function removeChains(grid)
     for (let position of positions)
         grid[position.y][position.x] = "";
 
-    return result;
+    document.getElementById("score").innerHTML = result;
 }
 
 function collapsePossible(grid)
