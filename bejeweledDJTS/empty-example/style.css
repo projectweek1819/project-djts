@@ -1,21 +1,16 @@
-html {
-    display: table;
-    margin: auto;
-}
-
-body {
-    display: table-cell;
-    vertical-align: middle;
-}
-
-canvas {
-    display: block;
+.script div {
+    align-content: center;
 }
 
 div {
     background-color: black;
     color: white;
     width: 600px;
-    font-size:20px;
-    text-align:center;
+    font-size: 20px;
+    text-align: center;
+    margin: auto;
+}
+
+input {
+    float: left;
 }

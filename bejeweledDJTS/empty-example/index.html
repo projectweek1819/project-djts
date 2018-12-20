@@ -9,7 +9,13 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <script src="sketch.js"></script>
-    <div>Time left: <span id="time">05:00</span></div>
+    <div class="script">
+        <script src="sketch.js"></script>
+    </div>
+    <input type="submit" id="start-clock" value="Start game" name="submit" onClick="startClock()"/>
+    <main>
+        <div>Time left: <span id="timer">05:00</span></div>
+        <div>Score: <span id="score">0</span></div>
+    </main>
 </body>
 </html>

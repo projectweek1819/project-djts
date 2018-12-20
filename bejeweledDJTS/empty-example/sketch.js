@@ -265,25 +265,30 @@ function updateGrid(grid)
 
 
 //          Timer           //
-function startTimer(duration, display) {
-    var timer = duration, minutes, seconds;
-    setInterval(function () {
-        minutes = parseInt(timer / 60, 10);
-        seconds = parseInt(timer % 60, 10);
+var clicked = false;
+var minute = 4;
+var sec = 60;
 
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        display.textContent = minutes + ":" + seconds;
-
-        if (--timer < 0) {
-            timer = duration;
-        }
-    }, 1000);
+function startClock()
+{
+    if (clicked === false)
+    {
+        clock = setInterval("countdown()", 1000);
+        clicked = true;
+    }
 }
 
-window.onload = function () {
-    var fiveMinutes = 60 * 5,
-        display = document.querySelector('#time');
-    startTimer(fiveMinutes, display);
-};
+function countdown()
+{
+    sec--;
+    if (sec === 00)
+    {
+        minute--;
+        sec = 59;
+        if (minute === 0)
+        {
+            document.getElementById("timer").innerHTML = "Time's up";
+        }
+    }
+    document.getElementById("timer").innerHTML = "0" + minute + ":" + sec;
+}
