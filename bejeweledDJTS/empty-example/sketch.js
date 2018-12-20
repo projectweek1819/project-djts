@@ -1,7 +1,7 @@
 var grid;
 var activeRect = [];
 var score;
-var highscore;
+var highscore = 0;
 const distanceBetweenRect = 50;
 const sizeRect = 49;
 
@@ -16,7 +16,6 @@ function setup() {
     result = 0;
     score = 0;
     document.getElementById("score").innerHTML = score;
-    highscore = 0;
     document.getElementById("highscore").innerHTML = highscore;
     if((totalTime % 60) < 10)
     {
@@ -364,7 +363,7 @@ function stopClock()
 
 function restartGame()
 {
-    window.clearInterval(clock);
+    stopClock();
     sec = totalTime;
     setup();
 }
