@@ -1,16 +1,8 @@
-.script div {
-    align-content: center;
-}
-
-div {
+main {
     background-color: black;
     color: white;
     width: 600px;
     font-size: 20px;
     text-align: center;
     margin: auto;
-}
-
-input {
-    float: left;
 }

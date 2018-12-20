@@ -50,31 +50,29 @@ function draw()
 //########CONTROLLER########
 function mouseClicked()
 {
-    var currentRect = getRectIndexAtLocation({x: mouseX, y: mouseY});
+    if(clicked) {
+        var currentRect = getRectIndexAtLocation({x: mouseX, y: mouseY});
 
-    if (currentRect == undefined)
-        return;
+        if (currentRect == undefined)
+            return;
 
-    if (activeRect.length == 0)
-    {
-        activeRect.push(currentRect);
-        console.log(currentRect);
-    }
-    else if (isAdjacent(activeRect[0], currentRect))
-    {
-        swap(grid, activeRect[0], currentRect);
-        if ( !hasChains(grid))
-            {
+        if (activeRect.length == 0) {
+            activeRect.push(currentRect);
+            console.log(currentRect);
+        }
+        else if (isAdjacent(activeRect[0], currentRect)) {
+            swap(grid, activeRect[0], currentRect);
+            if (!hasChains(grid)) {
                 swap(grid, activeRect[0], currentRect);
                 activeRect = [];
             }
-        updateGrid(grid);
-        activeRect = [];
-    }
-    else
-        {
+            updateGrid(grid);
             activeRect = [];
         }
+        else {
+            activeRect = [];
+        }
+    }
 }
 
 //########REST########
@@ -270,8 +268,7 @@ function updateGrid(grid)
 
 //          Timer           //
 var clicked = false;
-var minute = 4;
-var sec = 60;
+var sec = 300;
 
 function startClock()
 {
@@ -285,14 +282,26 @@ function startClock()
 function countdown()
 {
     sec--;
-    if (sec === 00)
+    if (sec === 0)
     {
-        minute--;
-        sec = 59;
-        if (minute === 0)
+        stopClock();
+    }
+    else
+    {
+        if(sec < 10)
         {
-            document.getElementById("timer").innerHTML = "Time's up";
+            document.getElementById("timer").innerHTML = "Time left: 0" + Math.floor(sec / 60) + ":0" + (sec % 60);
+        }
+        else
+        {
+            document.getElementById("timer").innerHTML = "Time left: 0" + Math.floor(sec / 60) + ":" + (sec % 60);
         }
     }
-    document.getElementById("timer").innerHTML = "0" + minute + ":" + sec;
+}
+
+function stopClock()
+{
+    window.clearInterval(clock);
+    document.getElementById("timer").innerHTML = "Out of time!";
+    clicked = false;
 }
