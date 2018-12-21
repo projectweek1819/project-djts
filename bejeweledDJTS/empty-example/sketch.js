@@ -361,7 +361,7 @@ function stopClock()
     clicked = false;
 }
 
-function restartGame()
+function stopGame()
 {
     stopClock();
     sec = totalTime;
